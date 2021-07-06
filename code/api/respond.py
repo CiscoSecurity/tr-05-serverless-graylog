@@ -1,6 +1,6 @@
-
 from flask import Blueprint
 from functools import partial
+
 from api.utils import get_json, get_jwt, jsonify_data
 from api.schemas import ObservableSchema, ActionFormParamsSchema
 
