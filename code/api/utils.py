@@ -2,8 +2,8 @@ import json
 from json.decoder import JSONDecodeError
 import requests
 import jwt
-from flask import request, jsonify
-from requests.exceptions import ConnectionError, InvalidURL
+from flask import request, jsonify, current_app
+from requests.exceptions import ConnectionError, InvalidURL, HTTPError
 from jwt import InvalidSignatureError, DecodeError, InvalidAudienceError
 from api.errors import AuthorizationError, InvalidArgumentError
 
@@ -28,14 +28,16 @@ def get_public_key(jwks_host, token):
     Get public key by requesting it from specified jwks host.
     """
 
-    expected_errors = {
-        ConnectionError: WRONG_JWKS_HOST,
-        InvalidURL: WRONG_JWKS_HOST,
-        KeyError: WRONG_JWKS_HOST,
-        JSONDecodeError: WRONG_JWKS_HOST
-    }
+    expected_errors = (
+        ConnectionError,
+        InvalidURL,
+        KeyError,
+        JSONDecodeError,
+        HTTPError,
+    )
     try:
         response = requests.get(f"https://{jwks_host}/.well-known/jwks")
+        response.raise_for_status()
         jwks = response.json()
 
         public_keys = {}
@@ -46,9 +48,8 @@ def get_public_key(jwks_host, token):
             )
         kid = jwt.get_unverified_header(token)['kid']
         return public_keys.get(kid)
-    except tuple(expected_errors) as error:
-        message = expected_errors[error.__class__]
-        raise AuthorizationError(message)
+    except expected_errors:
+        raise AuthorizationError(WRONG_JWKS_HOST)
 
 
 def get_auth_token():
@@ -67,15 +68,15 @@ def get_auth_token():
         raise AuthorizationError(expected_errors[error.__class__])
 
 
-def get_jwt():
+def get_credentials():
     """
     Get Authorization token and validate its signature
     against the public key from /.well-known/jwks endpoint.
     """
 
     expected_errors = {
-        KeyError: WRONG_PAYLOAD_STRUCTURE,
-        AssertionError: JWKS_HOST_MISSING,
+        KeyError: JWKS_HOST_MISSING,
+        AssertionError: WRONG_PAYLOAD_STRUCTURE,
         InvalidSignatureError: WRONG_KEY,
         DecodeError: WRONG_JWT_STRUCTURE,
         InvalidAudienceError: WRONG_AUDIENCE,
@@ -85,14 +86,18 @@ def get_jwt():
     try:
         jwks_host = jwt.decode(
             token, options={'verify_signature': False}
-        ).get('jwks_host')
-        assert jwks_host
+        )['jwks_host']
         key = get_public_key(jwks_host, token)
         aud = request.url_root
         payload = jwt.decode(
             token, key=key, algorithms=['RS256'], audience=[aud.rstrip('/')]
         )
-        return payload['key']
+        assert 'host' in payload
+        assert 'username' in payload
+        assert 'password' in payload
+
+        current_app.config['HOST'] = payload['host']
+        return payload
     except tuple(expected_errors) as error:
         message = expected_errors[error.__class__]
         raise AuthorizationError(message)
