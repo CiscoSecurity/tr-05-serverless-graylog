@@ -10,4 +10,3 @@ class Config:
 
     GRAYLOG_API_ENDPOINT = 'http://{host}/api/'
     REQUESTED_BY = 'SecureX Threat Response'
-
