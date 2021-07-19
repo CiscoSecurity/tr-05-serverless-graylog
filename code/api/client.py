@@ -24,6 +24,9 @@ class GraylogClient:
         url = current_app.config['GRAYLOG_API_ENDPOINT']
         return url.format(host=self._credentials.get('host'))
 
+    def health(self):
+        return self._request(path='cluster')
+
     def _request(self, path, method='GET', payload=None, params=None):
         url = '/'.join([self._url, path.lstrip('/')])
 
