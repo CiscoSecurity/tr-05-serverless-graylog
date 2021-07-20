@@ -167,7 +167,7 @@ def request_body(observable, query_id, search_type_id):
                     'timerange':
                         {
                             'type': 'relative',
-                            'range': 12592000
+                            'range': 2592000
                         },
                     'query':
                         {
