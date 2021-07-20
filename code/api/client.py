@@ -64,6 +64,9 @@ class GraylogClient:
                     [self.search_type_id]['total_results']) \
                 > current_app.config['CTR_ENTITIES_LIMIT']:
             add_error(MoreMessagesAvailableWarning(observable))
+
+        messages = (messages['results'][self.query_id]['search_types']
+                    [self.search_type_id]['messages'])
         return messages
 
     def _request(self, path, method='GET', payload=None, params=None):

@@ -34,10 +34,7 @@ def observe_observables():
     client = GraylogClient(credentials)
 
     for observable in observables:
-        result = client.get_data(observable)
-        messages = (result['results'][client.query_id]['search_types']
-                    [client.search_type_id]['messages'])
-
+        messages = client.get_data(observable)
         mapping = Sighting(observable)
 
         for message in messages:
