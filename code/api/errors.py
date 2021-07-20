@@ -39,3 +39,14 @@ class WatchdogError(TRFormattedError):
             code='health check failed',
             message='Invalid Health Check'
         )
+
+
+class MoreMessagesAvailableWarning(TRFormattedError):
+    def __init__(self, observable):
+        super().__init__(
+            'too-many-messages-warning',
+            f'More messages found in Graylog for {observable["value"]} than '
+            'can be rendered. Login to the Graylog console to see all '
+            'messages',
+            type_='warning',
+        )
