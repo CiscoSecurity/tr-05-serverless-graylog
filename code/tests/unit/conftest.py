@@ -1,10 +1,11 @@
-import jwt
-
-from app import app
-from pytest import fixture
 from http import HTTPStatus
 from unittest.mock import MagicMock
+
+import jwt
+from pytest import fixture
+
 from api.errors import INVALID_ARGUMENT
+from app import app
 from tests.unit.payloads_for_tests import PRIVATE_KEY
 
 
