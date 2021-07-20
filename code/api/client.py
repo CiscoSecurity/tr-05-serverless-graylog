@@ -20,8 +20,6 @@ class GraylogClient:
             'user-agent': current_app.config['USER_AGENT'],
             'X-Requested-By': current_app.config['REQUESTED_BY']
         }
-        self.query_id = None
-        self.search_type_id = None
 
     @property
     def _auth(self):
@@ -50,23 +48,22 @@ class GraylogClient:
         return self._request(path='cluster')
 
     def get_data(self, observable):
-        self.query_id = self._generate_object_id()
-        self.search_type_id = self._generate_object_id()
-        body = request_body(observable['value'],
-                            self.query_id, self.search_type_id)
+        query_id = self._generate_object_id()
+        search_type_id = self._generate_object_id()
+        body = request_body(observable['value'], query_id, search_type_id)
         path = 'views/search/sync'
         params = {
             'timeout': 60,
         }
 
         messages = self._request(path, 'POST', payload=body, params=params)
-        if (messages['results'][self.query_id]['search_types']
-                    [self.search_type_id]['total_results']) \
+        if (messages['results'][query_id]['search_types']
+                    [search_type_id]['total_results']) \
                 > current_app.config['CTR_ENTITIES_LIMIT']:
             add_error(MoreMessagesAvailableWarning(observable))
 
-        messages = (messages['results'][self.query_id]['search_types']
-                    [self.search_type_id]['messages'])
+        messages = (messages['results'][query_id]['search_types']
+                    [search_type_id]['messages'])
         return messages
 
     def _request(self, path, method='GET', payload=None, params=None):
