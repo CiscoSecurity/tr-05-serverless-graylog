@@ -3,12 +3,18 @@ import os
 import struct
 import time
 from random import SystemRandom
+from http import HTTPStatus
 
 import requests
 from flask import current_app
+from requests.exceptions import ConnectionError
 
-from api.errors import AuthorizationError, MoreMessagesAvailableWarning
-from api.utils import request_body, add_error
+from api.errors import (
+    AuthorizationError,
+    MoreMessagesAvailableWarning,
+    GraylogConnectionError
+)
+from api.utils import request_body, add_error, catch_ssl_errors
 
 INVALID_CREDENTIALS = 'wrong username or password'
 
@@ -47,6 +53,7 @@ class GraylogClient:
     def health(self):
         return self._request(path='cluster')
 
+    @catch_ssl_errors
     def get_data(self, observable):
         query_id = self._generate_object_id()
         search_type_id = self._generate_object_id()
@@ -75,6 +82,10 @@ class GraylogClient:
                                         headers=self._headers)
         except UnicodeEncodeError:
             raise AuthorizationError(INVALID_CREDENTIALS)
+        except ConnectionError:
+            raise GraylogConnectionError(self._url)
 
         if response.ok:
             return response.json()
+        elif response.status_code == HTTPStatus.UNAUTHORIZED:
+            raise AuthorizationError(INVALID_CREDENTIALS)

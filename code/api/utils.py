@@ -5,9 +5,18 @@ import jwt
 import requests
 from flask import request, jsonify, current_app, g
 from jwt import InvalidSignatureError, DecodeError, InvalidAudienceError
-from requests.exceptions import ConnectionError, InvalidURL, HTTPError
+from requests.exceptions import (
+    ConnectionError,
+    InvalidURL,
+    HTTPError,
+    SSLError
+)
 
-from api.errors import AuthorizationError, InvalidArgumentError
+from api.errors import (
+    AuthorizationError,
+    InvalidArgumentError,
+    GraylogSSLError
+)
 
 NO_AUTH_HEADER = 'Authorization header is missing'
 WRONG_AUTH_TYPE = 'Wrong authorization type'
@@ -213,3 +222,12 @@ def filter_observables(observables):
 
 def add_error(error):
     g.errors = [*g.get('errors', []), error.json]
+
+
+def catch_ssl_errors(func):
+    def wraps(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except SSLError as error:
+            raise GraylogSSLError(error)
+    return wraps
