@@ -1,9 +1,14 @@
-from pytest import fixture
 from http import HTTPStatus
-from .utils import get_headers
 from unittest.mock import patch
-from ..conftest import mock_api_response
-from ..payloads_for_tests import EXPECTED_RESPONSE_OF_JWKS_ENDPOINT
+
+from pytest import fixture
+
+from tests.unit.api.utils import get_headers
+from tests.unit.conftest import mock_api_response
+from tests.unit.payloads_for_tests import (
+    EXPECTED_RESPONSE_OF_JWKS_ENDPOINT,
+    EXPECTED_RESPONSE_FROM_GRAYLOG
+)
 
 
 def routes():
@@ -41,14 +46,19 @@ def test_enrich_call_with_valid_jwt_but_invalid_json_value(
 
 @fixture(scope='module')
 def valid_json():
-    return [{'type': 'domain', 'value': 'cisco.com'}]
+    return [{'type': 'ip', 'value': '24.141.154.216'}]
 
 
+@patch('api.client.GraylogClient.get_data')
 @patch('requests.get')
-def test_enrich_call_success(mock_request,
+def test_enrich_call_success(mock_get, mock_request,
                              route, client, valid_jwt, valid_json):
-    mock_request.return_value = \
+    mock_request.return_value = mock_api_response(
+        payload=EXPECTED_RESPONSE_FROM_GRAYLOG)
+
+    mock_get.return_value = \
         mock_api_response(payload=EXPECTED_RESPONSE_OF_JWKS_ENDPOINT)
+
     response = client.post(route, headers=get_headers(valid_jwt()),
                            json=valid_json)
     assert response.status_code == HTTPStatus.OK

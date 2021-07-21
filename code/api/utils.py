@@ -1,12 +1,13 @@
 import json
 from json.decoder import JSONDecodeError
-import requests
-import jwt
-from flask import request, jsonify, current_app
-from requests.exceptions import ConnectionError, InvalidURL, HTTPError
-from jwt import InvalidSignatureError, DecodeError, InvalidAudienceError
-from api.errors import AuthorizationError, InvalidArgumentError
 
+import jwt
+import requests
+from flask import request, jsonify, current_app, g
+from jwt import InvalidSignatureError, DecodeError, InvalidAudienceError
+from requests.exceptions import ConnectionError, InvalidURL, HTTPError
+
+from api.errors import AuthorizationError, InvalidArgumentError
 
 NO_AUTH_HEADER = 'Authorization header is missing'
 WRONG_AUTH_TYPE = 'Wrong authorization type'
@@ -97,6 +98,8 @@ def get_credentials():
         assert 'password' in payload
 
         current_app.config['HOST'] = payload['host']
+        set_ctr_entities_limit(payload)
+
         return payload
     except tuple(expected_errors) as error:
         message = expected_errors[error.__class__]
@@ -125,3 +128,88 @@ def jsonify_data(data):
 
 def jsonify_errors(data):
     return jsonify({'errors': [data]})
+
+
+def set_ctr_entities_limit(payload):
+    try:
+        ctr_entities_limit = int(payload['CTR_ENTITIES_LIMIT'])
+        assert ctr_entities_limit > 0
+    except (KeyError, ValueError, AssertionError):
+        ctr_entities_limit = current_app.config['CTR_DEFAULT_ENTITIES_LIMIT']
+    current_app.config['CTR_ENTITIES_LIMIT'] = ctr_entities_limit
+
+
+def format_docs(docs):
+    return {'count': len(docs), 'docs': docs}
+
+
+def jsonify_result():
+    result = {'data': {}}
+
+    if g.get('sightings'):
+        result['data']['sightings'] = format_docs(g.sightings)
+
+    if g.get('errors'):
+        result['errors'] = g.errors
+
+        if not result.get('data'):
+            result.pop('data', None)
+
+    return jsonify(result)
+
+
+def request_body(observable, query_id, search_type_id):
+    return {
+        'queries':
+            [
+                {
+                    'id': f'{query_id}',
+                    'timerange':
+                        {
+                            'type': 'relative',
+                            'range': 2592000
+                        },
+                    'query':
+                        {
+                            'type': 'elasticsearch',
+                            'query_string': f'\"{observable}\"'
+                        },
+                    'search_types':
+                        [
+                            {
+                                'id': f'{search_type_id}',
+                                'limit': int(
+                                    current_app.config['CTR_ENTITIES_LIMIT']),
+                                'offset': 0,
+                                'sort':
+                                    [
+                                        {
+                                            'field': 'timestamp',
+                                            'order': 'DESC'
+                                        }
+                                    ],
+                                'type': 'messages'
+                            }
+                        ]
+                }
+            ]
+    }
+
+
+def remove_duplicates(observables):
+    return [dict(t) for t in {tuple(d.items()) for d in observables}]
+
+
+def filter_observables(observables):
+    supported_types = current_app.config['SUPPORTED_TYPES']
+    observables = remove_duplicates(observables)
+    return list(
+        filter(lambda obs: (
+                obs['type'] in supported_types and obs["value"] != "0"
+                and not obs["value"].isspace()
+        ), observables)
+    )
+
+
+def add_error(error):
+    g.errors = [*g.get('errors', []), error.json]

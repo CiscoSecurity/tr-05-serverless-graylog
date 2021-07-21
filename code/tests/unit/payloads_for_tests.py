@@ -101,3 +101,183 @@ nKyI8B5gw4C0G0iL1dSsz2bR1O4GNOVfT3R6joZEXATFo/Kc2L0YAvApBNUYvY0k
 bjJ/JfTO5060SsWftf4iw3jrhSn9RwTTYdq/kErGFWvDGJn2MiuhMe2onNfVzIGR
 mdUxHwi1ulkspAn/fmY7f0hZpskDwcHyZmbKZuk+NU/FJ8IAcmvk9y7m25nSSc8=
 -----END RSA PRIVATE KEY-----"""
+
+EXPECTED_RESPONSE_FROM_GRAYLOG = {
+    "execution": {
+        "done": True,
+        "cancelled": False,
+        "completed_exceptionally": False
+    },
+    "results": {
+        "query_id": {
+            "query": {
+                "id": "query_id",
+                "timerange": {
+                    "type": "relative",
+                    "range": 12592000
+                },
+                "filter": {
+                    "type": "or",
+                    "filters": [
+                        {
+                            "type": "stream",
+                            "filters": None,
+                            "id": "000000000000000000000001",
+                            "title": None
+                        },
+                        {
+                            "type": "stream",
+                            "filters": None,
+                            "id": "60bf6fd4024ad37a05cbb006",
+                            "title": None
+                        }
+                    ]
+                },
+                "query": {
+                    "type": "elasticsearch",
+                    "query_string": "\"24.141.154.216\""
+                },
+                "search_types": [
+                    {
+                        "timerange": None,
+                        "query": None,
+                        "streams": [],
+                        "id": "search_type_id",
+                        "name": None,
+                        "limit": 101,
+                        "offset": 0,
+                        "sort": [
+                            {
+                                "field": "timestamp",
+                                "order": "DESC"
+                            }
+                        ],
+                        "decorators": [],
+                        "type": "messages",
+                        "filter": None
+                    }
+                ]
+            },
+            "execution_stats": {
+                "duration": 33,
+                "timestamp": "2021-07-20T12:37:42.058Z",
+                "effective_timerange": {
+                    "type": "absolute",
+                    "from": "2021-02-24T18:51:02.091Z",
+                    "to": "2021-07-20T12:37:42.091Z"
+                }
+            },
+            "search_types": {
+                "search_type_id": {
+                    "id": "search_type_id",
+                    "messages": [
+                        {
+                            "highlight_ranges": {},
+                            "message": {
+                                "gl2_accounted_message_size": 221,
+                                "level": 3,
+                                "gl2_remote_ip": "::1",
+                                "gl2_remote_port": 43339,
+                                "streams": [
+                                    "000000000000000000000001"
+                                ],
+                                "gl2_message_id": "01F7NTA7TRK9Q36QN6Q03PKSJE",
+                                "source": "%ASA-3-710003:",
+                                "message": "%ASA-3-710003: TCP access denied by ACL from 49.143.32.6/4222 to outside:24.141.154.216/23",
+                                "gl2_source_input": "60bf6485024ad37a05cba39c",
+                                "facility_num": 20,
+                                "gl2_source_node": "80fe6cad-d153-489f-91a8-beee65b2e27c",
+                                "_id": "f5999d80-c856-11eb-a871-000c293368b3",
+                                "facility": "local4",
+                                "timestamp": "2021-06-08T12:42:17.816Z"
+                            },
+                            "index": "graylog_0",
+                            "decoration_stats": None
+                        },
+                        {
+                            "highlight_ranges": {},
+                            "message": {
+                                "gl2_accounted_message_size": 222,
+                                "level": 3,
+                                "gl2_remote_ip": "::1",
+                                "gl2_remote_port": 49754,
+                                "streams": [
+                                    "000000000000000000000001"
+                                ],
+                                "gl2_message_id": "01F7NT94374GXQMJRV7GAH5AKM",
+                                "source": "%ASA-3-710003:",
+                                "message": "%ASA-3-710003: TCP access denied by ACL from 5.34.129.87/62507 to outside:24.141.154.216/23",
+                                "gl2_source_input": "60bf6485024ad37a05cba39c",
+                                "facility_num": 20,
+                                "gl2_source_node": "80fe6cad-d153-489f-91a8-beee65b2e27c",
+                                "_id": "dfc9f770-c856-11eb-a871-000c293368b3",
+                                "facility": "local4",
+                                "timestamp": "2021-06-08T12:41:41.223Z"
+                            },
+                            "index": "graylog_0",
+                            "decoration_stats": None
+                        },
+                        {
+                            "highlight_ranges": {},
+                            "message": {
+                                "gl2_accounted_message_size": 225,
+                                "level": 3,
+                                "gl2_remote_ip": "::1",
+                                "gl2_remote_port": 48544,
+                                "streams": [
+                                    "000000000000000000000001"
+                                ],
+                                "gl2_message_id": "01F7NT7J8GGPSBNB6RFHH3P31A",
+                                "source": "%ASA-3-710003:",
+                                "message": "%ASA-3-710003: TCP access denied by ACL from 156.96.156.172/50168 to outside:24.141.154.216/80",
+                                "gl2_source_input": "60bf6485024ad37a05cba39c",
+                                "facility_num": 20,
+                                "gl2_source_node": "80fe6cad-d153-489f-91a8-beee65b2e27c",
+                                "_id": "c15f4100-c856-11eb-a871-000c293368b3",
+                                "facility": "local4",
+                                "timestamp": "2021-06-08T12:40:50.192Z"
+                            },
+                            "index": "graylog_0",
+                            "decoration_stats": None
+                        },
+                        {
+                            "highlight_ranges": {},
+                            "message": {
+                                "gl2_accounted_message_size": 223,
+                                "level": 3,
+                                "gl2_remote_ip": "::1",
+                                "gl2_remote_port": 47419,
+                                "streams": [
+                                    "000000000000000000000001"
+                                ],
+                                "gl2_message_id": "01F7NT4RFEHY8F2Y4VP1RT5T5F",
+                                "source": "ASA-3-710003:",
+                                "message": "ASA-3-710003: TCP access denied by ACL from 156.96.156.172/50168 to outside:24.141.154.216/80",
+                                "gl2_source_input": "60bf6485024ad37a05cba39c",
+                                "facility_num": 20,
+                                "gl2_source_node": "80fe6cad-d153-489f-91a8-beee65b2e27c",
+                                "_id": "8a8cfb90-c856-11eb-a871-000c293368b3",
+                                "facility": "local4",
+                                "timestamp": "2021-06-08T12:39:18.216Z"
+                            },
+                            "index": "graylog_0",
+                            "decoration_stats": None
+                        }
+                    ],
+                    "effective_timerange": {
+                        "type": "absolute",
+                        "from": "2021-02-24T18:51:02.091Z",
+                        "to": "2021-07-20T12:37:42.091Z"
+                    },
+                    "total_results": 4,
+                    "type": "messages"
+                }
+            },
+            "errors": [],
+            "state": "COMPLETED"
+        }
+    },
+    "id": "60f6c39681e5cd7cd5e9ad9a",
+    "owner": "admin",
+    "search_id": None
+}
