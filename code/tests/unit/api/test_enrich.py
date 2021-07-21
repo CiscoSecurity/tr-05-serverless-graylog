@@ -46,7 +46,7 @@ def test_enrich_call_with_valid_jwt_but_invalid_json_value(
 
 @fixture(scope='module')
 def valid_json():
-    return [{'type': 'domain', 'value': '24.141.154.216'}]
+    return [{'type': 'ip', 'value': '24.141.154.216'}]
 
 
 @patch('api.client.GraylogClient.get_data')
