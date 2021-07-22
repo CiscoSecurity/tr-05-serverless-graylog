@@ -30,6 +30,7 @@ def valid_jwt(client):
             host='host',
             wrong_structure=False,
             missing_jwks_host=False,
+            limit=False,
     ):
         payload = {
             'jwks_host': jwks_host,
@@ -44,6 +45,9 @@ def valid_jwt(client):
 
         if wrong_structure:
             payload.pop('username')
+
+        if limit:
+            payload['CTR_ENTITIES_LIMIT'] = '1'
 
         return jwt.encode(
             payload, client.application.rsa_private_key, algorithm='RS256',
@@ -69,12 +73,68 @@ def invalid_json_expected_payload():
     return _make_message
 
 
-def mock_api_response(status_code=HTTPStatus.OK, payload=None):
+@fixture
+def mock_api_response(status_code=HTTPStatus.OK):
+    def _make_mock(payload=None, status_code=status_code):
+        mock_response = MagicMock()
+        mock_response.status_code = status_code
+        mock_response.ok = status_code == HTTPStatus.OK
+        mock_response.json = lambda: payload
+        return mock_response
+    return _make_mock
+
+
+@fixture(scope='module')
+def ssl_error_expected_relay_response():
+    return {
+        'errors':
+            [
+                {
+                    'code': 'unknown',
+                    'message':
+                        'Unable to verify SSL certificate: '
+                        'self signed certificate',
+                    'type': 'fatal'
+                }
+            ]
+    }
+
+
+@fixture(scope='module')
+def connection_error_expected_relay_response():
+    return {
+        'errors':
+            [
+                {
+                    'code': 'connection error',
+                    'message':
+                        'Unable to connect to Graylog, validate the '
+                        'configured API endpoint: '
+                        'https://host/api',
+                    'type': 'fatal'
+                }
+            ]
+    }
+
+
+@fixture
+def mock_exception_for_ssl_error():
     mock_response = MagicMock()
-
-    mock_response.status_code = status_code
-    mock_response.ok = status_code == HTTPStatus.OK
-
-    mock_response.json = lambda: payload
-
+    mock_response.reason.args.__getitem__().verify_message = 'self signed' \
+                                                             ' certificate'
     return mock_response
+
+
+@fixture(scope='module')
+def authorization_error_expected_relay_response():
+    return {
+        'errors':
+            [
+                {
+                    'code': 'authorization error',
+                    'message': 'Authorization failed: wrong '
+                               'username or password',
+                    'type': 'fatal'
+                }
+            ]
+    }

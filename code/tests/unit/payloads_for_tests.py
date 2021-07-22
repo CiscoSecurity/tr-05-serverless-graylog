@@ -109,7 +109,7 @@ EXPECTED_RESPONSE_FROM_GRAYLOG = {
         "completed_exceptionally": False
     },
     "results": {
-        "query_id": {
+        "60f9b4c461bf9b2a8a999b85": {
             "query": {
                 "id": "query_id",
                 "timerange": {
@@ -168,7 +168,7 @@ EXPECTED_RESPONSE_FROM_GRAYLOG = {
                 }
             },
             "search_types": {
-                "search_type_id": {
+                "60f9b550a09a4d867ecd0169": {
                     "id": "search_type_id",
                     "messages": [
                         {
@@ -281,3 +281,352 @@ EXPECTED_RESPONSE_FROM_GRAYLOG = {
     "owner": "admin",
     "search_id": None
 }
+
+EXPECTED_RESPONSE_FROM_RELAY = {
+    "data": {
+        "sightings": {
+            "count": 4,
+            "docs": [
+                {
+                    "confidence": "High",
+                    "count": 1,
+                    "data": {
+                        "columns": [
+                            {
+                                "name": "level",
+                                "type": "string"
+                            },
+                            {
+                                "name": "source",
+                                "type": "string"
+                            },
+                            {
+                                "name": "facility_num",
+                                "type": "string"
+                            },
+                            {
+                                "name": "facility",
+                                "type": "string"
+                            }
+                        ],
+                        "rows": [
+                            [
+                                "3",
+                                "%ASA-3-710003:",
+                                "20",
+                                "local4"
+                            ]
+                        ]
+                    },
+                    "description": "```\n%ASA-3-710003: TCP access denied by ACL from 49.143.32.6/4222 to outside:24.141.154.216/23 \n```",
+                    "external_ids": [
+                        "01F7NTA7TRK9Q36QN6Q03PKSJE",
+                        "f5999d80-c856-11eb-a871-000c293368b3"
+                    ],
+                    "id": "01F7NTA7TRK9Q36QN6Q03PKSJE",
+                    "internal": True,
+                    "observable": {
+                        "type": "ip",
+                        "value": "24.141.154.216"
+                    },
+                    "observed_time": {
+                        "start_date": "2021-06-08T12:42:17.816Z"
+                    },
+                    "schema_version": "1.1.6",
+                    "short_description": "Node 80fe6cad received a log from ::1 containing the observable",
+                    "source": "Graylog",
+                    "source_uri": "https://host/messages/graylog_0/f5999d80-c856-11eb-a871-000c293368b3",
+                    "title": "Log message received by Graylog in last 30 days contains observable",
+                    "type": "sighting"
+                },
+                {
+                    "confidence": "High",
+                    "count": 1,
+                    "data": {
+                        "columns": [
+                            {
+                                "name": "level",
+                                "type": "string"
+                            },
+                            {
+                                "name": "source",
+                                "type": "string"
+                            },
+                            {
+                                "name": "facility_num",
+                                "type": "string"
+                            },
+                            {
+                                "name": "facility",
+                                "type": "string"
+                            }
+                        ],
+                        "rows": [
+                            [
+                                "3",
+                                "%ASA-3-710003:",
+                                "20",
+                                "local4"
+                            ]
+                        ]
+                    },
+                    "description": "```\n%ASA-3-710003: TCP access denied by ACL from 5.34.129.87/62507 to outside:24.141.154.216/23 \n```",
+                    "external_ids": [
+                        "01F7NT94374GXQMJRV7GAH5AKM",
+                        "dfc9f770-c856-11eb-a871-000c293368b3"
+                    ],
+                    "id": "01F7NT94374GXQMJRV7GAH5AKM",
+                    "internal": True,
+                    "observable": {
+                        "type": "ip",
+                        "value": "24.141.154.216"
+                    },
+                    "observed_time": {
+                        "start_date": "2021-06-08T12:41:41.223Z"
+                    },
+                    "schema_version": "1.1.6",
+                    "short_description": "Node 80fe6cad received a log from ::1 containing the observable",
+                    "source": "Graylog",
+                    "source_uri": "https://host/messages/graylog_0/dfc9f770-c856-11eb-a871-000c293368b3",
+                    "title": "Log message received by Graylog in last 30 days contains observable",
+                    "type": "sighting"
+                },
+                {
+                    "confidence": "High",
+                    "count": 1,
+                    "data": {
+                        "columns": [
+                            {
+                                "name": "level",
+                                "type": "string"
+                            },
+                            {
+                                "name": "source",
+                                "type": "string"
+                            },
+                            {
+                                "name": "facility_num",
+                                "type": "string"
+                            },
+                            {
+                                "name": "facility",
+                                "type": "string"
+                            }
+                        ],
+                        "rows": [
+                            [
+                                "3",
+                                "%ASA-3-710003:",
+                                "20",
+                                "local4"
+                            ]
+                        ]
+                    },
+                    "description": "```\n%ASA-3-710003: TCP access denied by ACL from 156.96.156.172/50168 to outside:24.141.154.216/80 \n```",
+                    "external_ids": [
+                        "01F7NT7J8GGPSBNB6RFHH3P31A",
+                        "c15f4100-c856-11eb-a871-000c293368b3"
+                    ],
+                    "id": "01F7NT7J8GGPSBNB6RFHH3P31A",
+                    "internal": True,
+                    "observable": {
+                        "type": "ip",
+                        "value": "24.141.154.216"
+                    },
+                    "observed_time": {
+                        "start_date": "2021-06-08T12:40:50.192Z"
+                    },
+                    "schema_version": "1.1.6",
+                    "short_description": "Node 80fe6cad received a log from ::1 containing the observable",
+                    "source": "Graylog",
+                    "source_uri": "https://host/messages/graylog_0/c15f4100-c856-11eb-a871-000c293368b3",
+                    "title": "Log message received by Graylog in last 30 days contains observable",
+                    "type": "sighting"
+                },
+                {
+                    "confidence": "High",
+                    "count": 1,
+                    "data": {
+                        "columns": [
+                            {
+                                "name": "level",
+                                "type": "string"
+                            },
+                            {
+                                "name": "source",
+                                "type": "string"
+                            },
+                            {
+                                "name": "facility_num",
+                                "type": "string"
+                            },
+                            {
+                                "name": "facility",
+                                "type": "string"
+                            }
+                        ],
+                        "rows": [
+                            [
+                                "3",
+                                "ASA-3-710003:",
+                                "20",
+                                "local4"
+                            ]
+                        ]
+                    },
+                    "description": "```\nASA-3-710003: TCP access denied by ACL from 156.96.156.172/50168 to outside:24.141.154.216/80 \n```",
+                    "external_ids": [
+                        "01F7NT4RFEHY8F2Y4VP1RT5T5F",
+                        "8a8cfb90-c856-11eb-a871-000c293368b3"
+                    ],
+                    "id": "01F7NT4RFEHY8F2Y4VP1RT5T5F",
+                    "internal": True,
+                    "observable": {
+                        "type": "ip",
+                        "value": "24.141.154.216"
+                    },
+                    "observed_time": {
+                        "start_date": "2021-06-08T12:39:18.216Z"
+                    },
+                    "schema_version": "1.1.6",
+                    "short_description": "Node 80fe6cad received a log from ::1 containing the observable",
+                    "source": "Graylog",
+                    "source_uri": "https://host/messages/graylog_0/8a8cfb90-c856-11eb-a871-000c293368b3",
+                    "title": "Log message received by Graylog in last 30 days contains observable",
+                    "type": "sighting"
+                }
+            ]
+        }
+    }
+}
+
+EXPECTED_RESPONSE_FROM_RELAY_MORE_MESSAGES_AVAILABLE = {
+    'data': {
+        'sightings': {
+            'count': 4,
+            'docs': [{
+                'confidence': 'High',
+                'count': 1,
+                'data': {
+                    'columns': [{'name': 'level',
+                                 'type': 'string'},
+                                {'name': 'source',
+                                 'type': 'string'},
+                                {
+                                    'name': 'facility_num',
+                                    'type': 'string'},
+                                {
+                                    'name': 'facility',
+                                    'type': 'string'}],
+                    'rows': [
+                        ['3', '%ASA-3-710003:',
+                         '20', 'local4']]},
+                'description': '```\n%ASA-3-710003: TCP access denied by ACL from 49.143.32.6/4222 to outside:24.141.154.216/23 \n```',
+                'external_ids': [
+                    '01F7NTA7TRK9Q36QN6Q03PKSJE',
+                    'f5999d80-c856-11eb-a871-000c293368b3'],
+                'id': '01F7NTA7TRK9Q36QN6Q03PKSJE',
+                'internal': True,
+                'observable': {'type': 'ip',
+                               'value': '24.141.154.216'},
+                'observed_time': {
+                    'start_date': '2021-06-08T12:42:17.816Z'},
+                'schema_version': '1.1.6',
+                'short_description': 'Node 80fe6cad received a log from ::1 containing the observable',
+                'source': 'Graylog',
+                'source_uri': 'https://host/messages/graylog_0/f5999d80-c856-11eb-a871-000c293368b3',
+                'title': 'Log message received by Graylog in last 30 days contains observable',
+                'type': 'sighting'},
+                {'confidence': 'High', 'count': 1,
+                 'data': {'columns': [{'name': 'level',
+                                       'type': 'string'},
+                                      {'name': 'source',
+                                       'type': 'string'},
+                                      {
+                                          'name': 'facility_num',
+                                          'type': 'string'},
+                                      {
+                                          'name': 'facility',
+                                          'type': 'string'}],
+                          'rows': [
+                              ['3', '%ASA-3-710003:',
+                               '20', 'local4']]},
+                 'description': '```\n%ASA-3-710003: TCP access denied by ACL from 5.34.129.87/62507 to outside:24.141.154.216/23 \n```',
+                 'external_ids': [
+                     '01F7NT94374GXQMJRV7GAH5AKM',
+                     'dfc9f770-c856-11eb-a871-000c293368b3'],
+                 'id': '01F7NT94374GXQMJRV7GAH5AKM',
+                 'internal': True,
+                 'observable': {'type': 'ip',
+                                'value': '24.141.154.216'},
+                 'observed_time': {
+                     'start_date': '2021-06-08T12:41:41.223Z'},
+                 'schema_version': '1.1.6',
+                 'short_description': 'Node 80fe6cad received a log from ::1 containing the observable',
+                 'source': 'Graylog',
+                 'source_uri': 'https://host/messages/graylog_0/dfc9f770-c856-11eb-a871-000c293368b3',
+                 'title': 'Log message received by Graylog in last 30 days contains observable',
+                 'type': 'sighting'},
+                {'confidence': 'High', 'count': 1,
+                 'data': {'columns': [{'name': 'level',
+                                       'type': 'string'},
+                                      {'name': 'source',
+                                       'type': 'string'},
+                                      {
+                                          'name': 'facility_num',
+                                          'type': 'string'},
+                                      {
+                                          'name': 'facility',
+                                          'type': 'string'}],
+                          'rows': [
+                              ['3', '%ASA-3-710003:',
+                               '20', 'local4']]},
+                 'description': '```\n%ASA-3-710003: TCP access denied by ACL from 156.96.156.172/50168 to outside:24.141.154.216/80 \n```',
+                 'external_ids': [
+                     '01F7NT7J8GGPSBNB6RFHH3P31A',
+                     'c15f4100-c856-11eb-a871-000c293368b3'],
+                 'id': '01F7NT7J8GGPSBNB6RFHH3P31A',
+                 'internal': True,
+                 'observable': {'type': 'ip',
+                                'value': '24.141.154.216'},
+                 'observed_time': {
+                     'start_date': '2021-06-08T12:40:50.192Z'},
+                 'schema_version': '1.1.6',
+                 'short_description': 'Node 80fe6cad received a log from ::1 containing the observable',
+                 'source': 'Graylog',
+                 'source_uri': 'https://host/messages/graylog_0/c15f4100-c856-11eb-a871-000c293368b3',
+                 'title': 'Log message received by Graylog in last 30 days contains observable',
+                 'type': 'sighting'},
+                {'confidence': 'High', 'count': 1,
+                 'data': {'columns': [{'name': 'level',
+                                       'type': 'string'},
+                                      {'name': 'source',
+                                       'type': 'string'},
+                                      {
+                                          'name': 'facility_num',
+                                          'type': 'string'},
+                                      {
+                                          'name': 'facility',
+                                          'type': 'string'}],
+                          'rows': [
+                              ['3', 'ASA-3-710003:',
+                               '20', 'local4']]},
+                 'description': '```\nASA-3-710003: TCP access denied by ACL from 156.96.156.172/50168 to outside:24.141.154.216/80 \n```',
+                 'external_ids': [
+                     '01F7NT4RFEHY8F2Y4VP1RT5T5F',
+                     '8a8cfb90-c856-11eb-a871-000c293368b3'],
+                 'id': '01F7NT4RFEHY8F2Y4VP1RT5T5F',
+                 'internal': True,
+                 'observable': {'type': 'ip',
+                                'value': '24.141.154.216'},
+                 'observed_time': {
+                     'start_date': '2021-06-08T12:39:18.216Z'},
+                 'schema_version': '1.1.6',
+                 'short_description': 'Node 80fe6cad received a log from ::1 containing the observable',
+                 'source': 'Graylog',
+                 'source_uri': 'https://host/messages/graylog_0/8a8cfb90-c856-11eb-a871-000c293368b3',
+                 'title': 'Log message received by Graylog in last 30 days contains observable',
+                 'type': 'sighting'}]}}, 'errors': [
+        {'code': 'too-many-messages-warning',
+         'message': 'More messages found in Graylog for 24.141.154.216 than can be rendered. Login to the Graylog console to see all messages',
+         'type': 'warning'}]}
