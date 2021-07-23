@@ -4,7 +4,6 @@ from unittest.mock import patch
 from pytest import fixture
 
 from tests.unit.api.utils import get_headers
-from tests.unit.conftest import mock_api_response
 from tests.unit.payloads_for_tests import EXPECTED_RESPONSE_OF_JWKS_ENDPOINT
 
 
@@ -39,7 +38,7 @@ def invalid_json_observable_value():
 
 @patch('requests.get')
 def test_respond_call_with_valid_jwt_but_invalid_json_value(
-        mock_request, client, valid_jwt, invalid_json_value,
+        mock_request, client, valid_jwt, invalid_json_value, mock_api_response,
         invalid_json_expected_payload, route='/respond/observables'
 ):
     mock_request.return_value = \
@@ -56,7 +55,8 @@ def test_respond_call_with_valid_jwt_but_invalid_json_value(
 @patch('requests.get')
 def test_respond_call_with_valid_jwt_but_invalid_json_action_id(
         mock_request, client, valid_jwt, invalid_json_action_id,
-        invalid_json_expected_payload, route='/respond/trigger'
+        mock_api_response, invalid_json_expected_payload,
+        route='/respond/trigger',
 ):
     mock_request.return_value = \
         mock_api_response(payload=EXPECTED_RESPONSE_OF_JWKS_ENDPOINT)
@@ -72,7 +72,8 @@ def test_respond_call_with_valid_jwt_but_invalid_json_action_id(
 @patch('requests.get')
 def test_respond_call_with_valid_jwt_but_invalid_json_observable_value(
         mock_request, client, valid_jwt, invalid_json_observable_value,
-        invalid_json_expected_payload, route='/respond/trigger'
+        invalid_json_expected_payload, mock_api_response,
+        route='/respond/trigger',
 ):
     mock_request.return_value = \
         mock_api_response(payload=EXPECTED_RESPONSE_OF_JWKS_ENDPOINT)
@@ -97,7 +98,7 @@ def valid_json(route):
 
 
 @patch('requests.get')
-def test_respond_call_success(mock_request,
+def test_respond_call_success(mock_request, mock_api_response,
                               route, client, valid_jwt, valid_json):
     mock_request.return_value = \
         mock_api_response(payload=EXPECTED_RESPONSE_OF_JWKS_ENDPOINT)
