@@ -2,7 +2,7 @@ from http import HTTPStatus
 from unittest.mock import patch
 
 from pytest import fixture
-from requests.exceptions import SSLError
+from requests.exceptions import SSLError, ConnectionError
 
 from tests.unit.api.utils import get_headers
 from tests.unit.payloads_for_tests import (

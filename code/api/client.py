@@ -7,6 +7,7 @@ from http import HTTPStatus
 
 import requests
 from flask import current_app
+from requests.exceptions import ConnectionError
 
 from api.errors import (
     AuthorizationError,
