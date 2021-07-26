@@ -1,6 +1,6 @@
 from functools import partial
 
-from flask import Blueprint, g
+from flask import Blueprint, g, current_app
 
 from api.client import GraylogClient
 from api.mapping import Sighting
@@ -40,5 +40,20 @@ def observe_observables():
 @enrich_api.route('/refer/observables', methods=['POST'])
 def refer_observables():
     _ = get_credentials()
-    _ = get_observables()
-    return jsonify_data([])
+    observables = get_observables()
+
+    relay_output = [
+        {
+            'id': (f'ref-graylog-search-{observable["type"].replace("_", "-")}'
+                   f'-{observable["value"]}'),
+            'title': f'Search for this {observable["type"]}',
+            'description': f'Search for this {observable["type"]} in the '
+                           'Graylog console',
+            'url': f'https://{current_app.config["HOST"]}/search?rangetype='
+                   f'relative&relative=2592000&q={observable["value"]}',
+            'categories': ['Graylog', 'Search'],
+        }
+        for observable in observables
+    ]
+
+    return jsonify_data(relay_output)
