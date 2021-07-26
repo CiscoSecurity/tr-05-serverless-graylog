@@ -630,3 +630,18 @@ EXPECTED_RESPONSE_FROM_RELAY_MORE_MESSAGES_AVAILABLE = {
         {'code': 'too-many-messages-warning',
          'message': 'More messages found in Graylog for 24.141.154.216 than can be rendered. Login to the Graylog console to see all messages',
          'type': 'warning'}]}
+
+EXPECTED_RESPONSE_FROM_REFER_ENDPOINT = {
+    'data': [
+        {
+            'categories': [
+                'Graylog',
+                'Search'
+            ],
+            'description': 'Search for this ip in the Graylog console',
+            'id': 'ref-graylog-search-ip-24.141.154.216',
+            'title': 'Search for this ip',
+            'url': 'https://host/search?rangetype=relative&relative=2592000&q=24.141.154.216'
+        }
+    ]
+}

@@ -10,11 +10,13 @@ from tests.unit.payloads_for_tests import (
     EXPECTED_RESPONSE_FROM_GRAYLOG,
     EXPECTED_RESPONSE_FROM_RELAY,
     EXPECTED_RESPONSE_FROM_RELAY_MORE_MESSAGES_AVAILABLE,
+    EXPECTED_RESPONSE_FROM_REFER_ENDPOINT,
 )
 
 
 def routes():
     yield '/observe/observables'
+    yield '/refer/observables'
 
 
 def object_ids():
@@ -68,14 +70,17 @@ def test_enrich_call_success(mock_get, mock_request, mock_id, route, client,
     response = client.post(route, headers=get_headers(valid_jwt()),
                            json=valid_json)
     assert response.status_code == HTTPStatus.OK
-    assert response.json == EXPECTED_RESPONSE_FROM_RELAY
+    if route == '/observe/observables':
+        assert response.json == EXPECTED_RESPONSE_FROM_RELAY
+    elif route == '/refer/observables':
+        assert response.json == EXPECTED_RESPONSE_FROM_REFER_ENDPOINT
 
 
 @patch('api.client.GraylogClient._generate_object_id')
 @patch('requests.request')
 @patch('requests.get')
 def tests_enrich_call_with_more_messages_available(
-        mock_get, mock_request, mock_id, route,
+        mock_get, mock_request, mock_id,
         client, valid_jwt, valid_json, mock_api_response):
     mock_request.return_value = \
         mock_api_response(EXPECTED_RESPONSE_FROM_GRAYLOG)
@@ -83,8 +88,8 @@ def tests_enrich_call_with_more_messages_available(
     mock_get.return_value = \
         mock_api_response(EXPECTED_RESPONSE_OF_JWKS_ENDPOINT)
 
-    response = client.post(route, headers=get_headers(valid_jwt(limit=True)),
-                           json=valid_json)
+    response = client.post('/observe/observables', headers=get_headers(
+        valid_jwt(limit=True)), json=valid_json)
 
     assert response.status_code == HTTPStatus.OK
     assert response.json == \
@@ -95,15 +100,15 @@ def tests_enrich_call_with_more_messages_available(
 @patch('requests.get')
 def test_enrich_call_with_ssl_error(mock_get, mock_request, mock_api_response,
                                     mock_exception_for_ssl_error,
-                                    client, route, valid_jwt, valid_json,
+                                    client, valid_jwt, valid_json,
                                     ssl_error_expected_relay_response):
 
     mock_get.return_value = \
         mock_api_response(payload=EXPECTED_RESPONSE_OF_JWKS_ENDPOINT)
     mock_request.side_effect = [SSLError(mock_exception_for_ssl_error)]
 
-    response = client.post(route, headers=get_headers(valid_jwt()),
-                           json=valid_json)
+    response = client.post('/observe/observables',
+                           headers=get_headers(valid_jwt()), json=valid_json)
     assert response.status_code == HTTPStatus.OK
     assert response.json == ssl_error_expected_relay_response
 
