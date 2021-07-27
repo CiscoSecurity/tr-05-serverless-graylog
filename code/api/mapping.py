@@ -62,9 +62,9 @@ class Sighting:
     def extract(self, message, index):
         sighting = {
             'id': message.get('gl2_message_id'),
-            'observed_time': {'start_date': message.get('timestamp')},
+            'observed_time': {'start_time': message.get('timestamp')},
             'description': f'```\n{message.get("message")} \n```',
-            'observable': self.observable,
+            'observables': [self.observable],
             'short_description': self._short_description(message),
             'source_uri': self._source_uri(index, message['_id']),
             'external_ids':

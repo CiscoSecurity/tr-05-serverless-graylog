@@ -325,12 +325,12 @@ EXPECTED_RESPONSE_FROM_RELAY = {
                     ],
                     "id": "01F7NTA7TRK9Q36QN6Q03PKSJE",
                     "internal": True,
-                    "observable": {
+                    "observables": [{
                         "type": "ip",
                         "value": "24.141.154.216"
-                    },
+                    }],
                     "observed_time": {
-                        "start_date": "2021-06-08T12:42:17.816Z"
+                        "start_time": "2021-06-08T12:42:17.816Z"
                     },
                     "schema_version": "1.1.6",
                     "short_description": "Node 80fe6cad received a log from ::1 containing the observable",
@@ -377,12 +377,12 @@ EXPECTED_RESPONSE_FROM_RELAY = {
                     ],
                     "id": "01F7NT94374GXQMJRV7GAH5AKM",
                     "internal": True,
-                    "observable": {
+                    "observables": [{
                         "type": "ip",
                         "value": "24.141.154.216"
-                    },
+                    }],
                     "observed_time": {
-                        "start_date": "2021-06-08T12:41:41.223Z"
+                        "start_time": "2021-06-08T12:41:41.223Z"
                     },
                     "schema_version": "1.1.6",
                     "short_description": "Node 80fe6cad received a log from ::1 containing the observable",
@@ -429,12 +429,12 @@ EXPECTED_RESPONSE_FROM_RELAY = {
                     ],
                     "id": "01F7NT7J8GGPSBNB6RFHH3P31A",
                     "internal": True,
-                    "observable": {
+                    "observables": [{
                         "type": "ip",
                         "value": "24.141.154.216"
-                    },
+                    }],
                     "observed_time": {
-                        "start_date": "2021-06-08T12:40:50.192Z"
+                        "start_time": "2021-06-08T12:40:50.192Z"
                     },
                     "schema_version": "1.1.6",
                     "short_description": "Node 80fe6cad received a log from ::1 containing the observable",
@@ -481,12 +481,12 @@ EXPECTED_RESPONSE_FROM_RELAY = {
                     ],
                     "id": "01F7NT4RFEHY8F2Y4VP1RT5T5F",
                     "internal": True,
-                    "observable": {
+                    "observables": [{
                         "type": "ip",
                         "value": "24.141.154.216"
-                    },
+                    }],
                     "observed_time": {
-                        "start_date": "2021-06-08T12:39:18.216Z"
+                        "start_time": "2021-06-08T12:39:18.216Z"
                     },
                     "schema_version": "1.1.6",
                     "short_description": "Node 80fe6cad received a log from ::1 containing the observable",
@@ -527,10 +527,10 @@ EXPECTED_RESPONSE_FROM_RELAY_MORE_MESSAGES_AVAILABLE = {
                     'f5999d80-c856-11eb-a871-000c293368b3'],
                 'id': '01F7NTA7TRK9Q36QN6Q03PKSJE',
                 'internal': True,
-                'observable': {'type': 'ip',
-                               'value': '24.141.154.216'},
+                'observables': [{'type': 'ip',
+                               'value': '24.141.154.216'}],
                 'observed_time': {
-                    'start_date': '2021-06-08T12:42:17.816Z'},
+                    'start_time': '2021-06-08T12:42:17.816Z'},
                 'schema_version': '1.1.6',
                 'short_description': 'Node 80fe6cad received a log from ::1 containing the observable',
                 'source': 'Graylog',
@@ -557,10 +557,10 @@ EXPECTED_RESPONSE_FROM_RELAY_MORE_MESSAGES_AVAILABLE = {
                      'dfc9f770-c856-11eb-a871-000c293368b3'],
                  'id': '01F7NT94374GXQMJRV7GAH5AKM',
                  'internal': True,
-                 'observable': {'type': 'ip',
-                                'value': '24.141.154.216'},
+                 'observables': [{'type': 'ip',
+                                'value': '24.141.154.216'}],
                  'observed_time': {
-                     'start_date': '2021-06-08T12:41:41.223Z'},
+                     'start_time': '2021-06-08T12:41:41.223Z'},
                  'schema_version': '1.1.6',
                  'short_description': 'Node 80fe6cad received a log from ::1 containing the observable',
                  'source': 'Graylog',
@@ -587,10 +587,10 @@ EXPECTED_RESPONSE_FROM_RELAY_MORE_MESSAGES_AVAILABLE = {
                      'c15f4100-c856-11eb-a871-000c293368b3'],
                  'id': '01F7NT7J8GGPSBNB6RFHH3P31A',
                  'internal': True,
-                 'observable': {'type': 'ip',
-                                'value': '24.141.154.216'},
+                 'observables': [{'type': 'ip',
+                                'value': '24.141.154.216'}],
                  'observed_time': {
-                     'start_date': '2021-06-08T12:40:50.192Z'},
+                     'start_time': '2021-06-08T12:40:50.192Z'},
                  'schema_version': '1.1.6',
                  'short_description': 'Node 80fe6cad received a log from ::1 containing the observable',
                  'source': 'Graylog',
@@ -617,10 +617,10 @@ EXPECTED_RESPONSE_FROM_RELAY_MORE_MESSAGES_AVAILABLE = {
                      '8a8cfb90-c856-11eb-a871-000c293368b3'],
                  'id': '01F7NT4RFEHY8F2Y4VP1RT5T5F',
                  'internal': True,
-                 'observable': {'type': 'ip',
-                                'value': '24.141.154.216'},
+                 'observables': [{'type': 'ip',
+                                'value': '24.141.154.216'}],
                  'observed_time': {
-                     'start_date': '2021-06-08T12:39:18.216Z'},
+                     'start_time': '2021-06-08T12:39:18.216Z'},
                  'schema_version': '1.1.6',
                  'short_description': 'Node 80fe6cad received a log from ::1 containing the observable',
                  'source': 'Graylog',
