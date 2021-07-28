@@ -1,3 +1,5 @@
+from ipaddress import ip_address
+
 from flask import current_app
 
 CTIM_DEFAULTS = {
@@ -17,6 +19,11 @@ SIGHTING_DEFAULTS = {
     'source': SOURCE,
     'title': 'Log message received by Graylog in'
              ' last 30 days contains observable',
+}
+
+IP_VERSION = {
+    4: 'IP',
+    6: 'IPv6',
 }
 
 
@@ -52,11 +59,19 @@ class Sighting:
 
     @staticmethod
     def _make_relations(message):
+        source_ip = message.get('source_ip')
+        destination_ip = message.get('destination_ip')
         return {
             'origin': message.get('source'),
             'relation': 'Connected_To',
-            'source': {'value': message.get('source_ip'), 'type': 'ip'},
-            'related': {'value': message.get('destination_ip'), 'type': 'ip'},
+            'source': {
+                'value': source_ip,
+                'type': IP_VERSION[ip_address(source_ip).version]
+            },
+            'related': {
+                'value': destination_ip,
+                'type': IP_VERSION[ip_address(destination_ip).version]
+            },
         }
 
     def extract(self, message, index):
