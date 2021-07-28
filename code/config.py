@@ -13,7 +13,7 @@ class Config:
 
     SUPPORTED_TYPES = {
         'ip': 'IP',
-        'ipv6': 'IPV6',
+        'ipv6': 'IPv6',
         'device': 'device',
         'user': 'user',
         'domain': 'domain',
