@@ -8,6 +8,8 @@ Intelligence service provider.
 The Relay itself is just a simple application written in Python that can be
 easily packaged and deployed in docker container.
 
+The code is provided here purely for educational purposes.
+
 ## Rationale
 
 - We need an application that will translate API requests from SecureX Threat Response to the third-party integration, and vice versa.
@@ -72,8 +74,42 @@ This application was developed and tested under Python version 3.9.
 
 ### Implemented Relay Endpoints
 
-`N/A`
+- `POST /health`
+  - Verifies the Authorization Bearer JWT and decodes it to restore the original credentials.
+  - Authenticates to the underlying external service to check that provided 
+    credentials are valid and the service is avaliable at the moment. 
+
+- `POST /observe/observables`
+  - Accepts a list of observables and filters out unsupported ones.
+  - Verifies the Authorization Bearer JWT and decodes it to restore the original credentials.
+  - Makes a series of requests to the underlying external service to query for 
+    some cyber threat intelligence data on each supported observable.
+  - Maps the fetched data into appropriate CTIM entities.
+  - Returns a list per each of the following CTIM entities (if any extracted):
+    - Sighting
+- `POST /refer/observables`
+  - Accepts a list of observables and filters out unsupported ones.
+  - Builds a search link per each supported observable to pivot back to the 
+    underlying external service and look up events with the observable there.
+  - Returns a list of those links.
+- `POST /version`
+  - Returns the current version of the application.
 
 ### Supported Types of Observables
 
-`N/A`
+All types allowed in [CTIM](https://github.com/threatgrid/ctim/blob/master/doc/structures/sighting.md#propertytype-observabletypeidentifierstring)
+
+### CTIM Mapping Specifies
+
+Each response from the Graylog API for the supported observables generates the following CTIM entities:
+  - `Sightings` are based on `.messages[]`
+
+Used values:
+- `.total_results`
+- `.messages[]`
+- `.messages[].index`
+- `.messages[].message`
+- `.messages[].message.timesamp`
+- `.messages[].message.gl2_message_id`
+- `.messages[].message._id`
+- `.messages[].message.gl2_source_node`
