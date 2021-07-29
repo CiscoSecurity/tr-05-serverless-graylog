@@ -638,9 +638,9 @@ EXPECTED_RESPONSE_FROM_REFER_ENDPOINT = {
                 'Graylog',
                 'Search'
             ],
-            'description': 'Search for this ip in the Graylog console',
+            'description': 'Search for this IP in the Graylog console',
             'id': 'ref-graylog-search-ip-24.141.154.216',
-            'title': 'Search for this ip',
+            'title': 'Search for this IP',
             'url': 'https://host/search?rangetype=relative&relative=2592000&q=24.141.154.216'
         }
     ]

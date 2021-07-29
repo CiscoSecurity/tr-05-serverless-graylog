@@ -42,13 +42,19 @@ def refer_observables():
     _ = get_credentials()
     observables = get_observables()
 
+    obs_types = current_app.config['SUPPORTED_TYPES']
     relay_output = [
         {
             'id': (f'ref-graylog-search-{observable["type"].replace("_", "-")}'
                    f'-{observable["value"]}'),
-            'title': f'Search for this {observable["type"]}',
-            'description': f'Search for this {observable["type"]} in the '
-                           'Graylog console',
+            'title': (
+                'Search for this '
+                f'{obs_types.get(observable["type"], observable["type"])}'
+            ),
+            'description': (
+                'Search for this '
+                f'{obs_types.get(observable["type"], observable["type"])} '
+                'in the Graylog console'),
             'url': f'https://{current_app.config["HOST"]}/search?rangetype='
                    f'relative&relative=2592000&q={observable["value"]}',
             'categories': ['Graylog', 'Search'],
