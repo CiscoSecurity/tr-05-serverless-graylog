@@ -11,6 +11,8 @@ from tests.unit.payloads_for_tests import (
     EXPECTED_RESPONSE_FROM_RELAY,
     EXPECTED_RESPONSE_FROM_RELAY_MORE_MESSAGES_AVAILABLE,
     EXPECTED_RESPONSE_FROM_REFER_ENDPOINT,
+    EXPECTED_RESPONSE_FROM_GRAYLOG_WITH_RELATIONS,
+    EXPECTED_RESPONSE_FROM_RELAY_WITH_RELATIONS,
 )
 
 
@@ -167,3 +169,22 @@ def test_enrich_call_with_unauthorized_error(
                            json=valid_json)
     assert response.status_code == HTTPStatus.OK
     assert response.json == authorization_error_expected_relay_response
+
+
+@patch('api.client.GraylogClient._generate_object_id')
+@patch('requests.request')
+@patch('requests.get')
+def test_enrich_call_success_with_relations(mock_get, mock_request, mock_id,
+                                            client, mock_api_response,
+                                            valid_jwt):
+    mock_request.return_value = \
+        mock_api_response(EXPECTED_RESPONSE_FROM_GRAYLOG_WITH_RELATIONS)
+    mock_id.side_effect = object_ids()
+    mock_get.return_value = \
+        mock_api_response(EXPECTED_RESPONSE_OF_JWKS_ENDPOINT)
+
+    response = client.post('/observe/observables',
+                           headers=get_headers(valid_jwt()),
+                           json=[{'type': 'ip', 'value': '188.125.72.73'}])
+    assert response.status_code == HTTPStatus.OK
+    assert response.json == EXPECTED_RESPONSE_FROM_RELAY_WITH_RELATIONS
