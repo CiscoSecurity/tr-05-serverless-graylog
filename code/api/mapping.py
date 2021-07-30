@@ -22,8 +22,8 @@ SIGHTING_DEFAULTS = {
 }
 
 IP_VERSION = {
-    4: 'IP',
-    6: 'IPv6',
+    4: 'ip',
+    6: 'ipv6',
 }
 
 
@@ -90,6 +90,6 @@ class Sighting:
         }
 
         if message.get('source_ip') and message.get('destination_ip'):
-            sighting['relations'] = self._make_relations(message)
+            sighting['relations'] = [self._make_relations(message)]
 
         return sighting
