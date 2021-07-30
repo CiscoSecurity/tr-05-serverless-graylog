@@ -13,7 +13,7 @@
   "configuration_spec": [
     {
       "key": "custom_host",
-      "type": "api_key",
+      "type": "string",
       "label": "Host",
       "tooltip": "Graylog Host",
       "required": true
