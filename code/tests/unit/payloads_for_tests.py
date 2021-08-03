@@ -628,7 +628,7 @@ EXPECTED_RESPONSE_FROM_RELAY_MORE_MESSAGES_AVAILABLE = {
                  'title': 'Log message received by Graylog in last 30 days contains observable',
                  'type': 'sighting'}]}}, 'errors': [
         {'code': 'too-many-messages-warning',
-         'message': 'More messages found in Graylog for 24.141.154.216 than can be rendered. Login to the Graylog console to see all messages',
+         'message': 'More messages found in Graylog for 24.141.154.216 than can be rendered. Log in to the Graylog console to see all messages',
          'type': 'warning'}]}
 
 EXPECTED_RESPONSE_FROM_REFER_ENDPOINT = {
