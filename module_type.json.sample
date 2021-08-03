@@ -1,0 +1,69 @@
+{
+  "title": "Graylog",
+  "default_name": "Graylog",
+  "short_description": "Graylog is a leading centralized log management solution built to open standards for capturing, storing, and enabling real-time analysis of terabytes of machine data.",
+  "description": "Graylog is a leading centralized log management solution built to open standards for capturing, storing, and enabling real-time analysis of terabytes of machine data.",
+  "tips": "When configuring Graylog integration, you must generate access token from Graylog and then add Graylog integration Module to SecureX\n\n1. If you use multi-factor authorization you should generate access token. (Skip this step if not)\n\n    Login to Graylog, click on User icon and choose **Edit profile**, next click **Edit Tokens**, set the name of token and save it.\n\n2. Complete the **Add New Graylog Integration Module** form:\n\n    - **Integration Module Name** - Leave the default name or enter a name that is meaningful to you\n\n    - **Host** - Enter host name of Graylog API endpoint\n\n    - **Username** - Graylog username (or generated token in step 1)\n\n    - **Password** - Graylog password ('token' - in case of using access token)\n\n3. Click **Save** to complete the Graylog module configuration.",
+  "external_references": [
+    {
+      "label": "Graylog",
+      "link": "https://www.graylog.org/"
+    }
+  ],
+  "configuration_spec": [
+    {
+      "key": "custom_host",
+      "type": "string",
+      "label": "Host",
+      "tooltip": "Graylog Host",
+      "required": true
+    },
+    {
+      "key": "custom_username",
+      "type": "api_key",
+      "label": "Username",
+      "tooltip": "Graylog Username",
+      "required": true
+    },
+    {
+      "key": "custom_password",
+      "type": "api_key",
+      "label": "Password",
+      "tooltip": "Graylog Password",
+      "required": true
+    },
+    {
+        "key": "custom_CTR_ENTITIES_LIMIT",
+        "required": false,
+        "type": "integer",
+        "label": "Entities Limit",
+        "tooltip": "Restricts the maximum number of `Sightings`. Please note that the number over 100 might lead to data inconsistency."
+    }
+  ],
+  "capabilities": [
+    {
+      "id": "health",
+      "description": "Healthcheck"
+    },
+    {
+      "id": "observe",
+      "description": "Enrichments"
+    },
+    {
+      "id": "refer",
+      "description": "Reference links"
+    }
+  ],
+  "properties": {
+    "supported-apis": [
+      "health",
+      "observe/observables",
+      "refer/observables"
+    ],
+    "auth-type": "configuration-token",
+    "configuration-token-alg": "RS256",
+    "custom_jwks_host": "visibility.amp.cisco.com",
+    "url": "https://ciscohosted.url"
+  },
+  "logo": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxOS4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCA1MDAgNTAwIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MDAgNTAwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPg0KCS5zdDB7ZmlsbDojOEQ4RTkyO30NCgkuc3Qxe2ZpbGw6I0M0MjIyRjt9DQo8L3N0eWxlPg0KPGcgaWQ9IlhNTElEXzIwXyI+DQoJPHBhdGggaWQ9IlhNTElEXzIyXyIgY2xhc3M9InN0MCIgZD0iTTI3Ni4xLDE3Ni41Yy0yLjUsMC4xLTQuNiwxLjktNSw0LjRjMCwwLTE3LjIsMTEwLjgtMTguOSwxMTAuOGMtMS44LDAtMTkuNS04My4yLTE5LjUtODMuMg0KCQljLTAuNS0yLjItMi40LTMuOS00LjctNC4xYy0yLjMtMC4yLTQuNCwxLjEtNS4zLDMuMmwtMTcuNyw0MC44aC0xMC4xYy0yLjEtNC40LTYuNS03LjQtMTEuNy03LjRjLTcuMiwwLTEzLDUuOC0xMywxMw0KCQljMCw3LjIsNS44LDEzLDEzLDEzYzUuNCwwLDEwLTMuMywxMi03LjloMTMuM2MyLjEsMCw0LTEuMyw0LjktMy4yYzAsMCwxMS41LTI5LjMsMTIuNy0yOS4zYzEuMywwLDIxLjgsOTMuMiwyMS44LDkzLjINCgkJYzAuNiwyLjQsMi43LDQuMSw1LjIsNC4xYzIuNy0wLjEsNC44LTEuOSw1LjItNC40YzAsMCwxNy43LTExMi40LDE5LjItMTEyLjRzMTkuMyw3My44LDE5LjMsNzMuOGMwLjYsMi4yLDIuNiwzLjgsNC45LDQNCgkJYzIuMywwLjEsNC40LTEuMyw1LjItMy40bDE0LTM3LjVsOS40LDE0LjRjMC44LTYuNywwLjYtMTMuNS0wLjUtMjAuM2wtNS42LTguOGMtMS4xLTEuNy0zLTIuNi01LTIuNGMtMiwwLjItMy43LDEuNS00LjQsMy40DQoJCWwtMTEuOSwzMS44bC0yMS4yLTgxLjRjLTAuNi0yLjMtMi44LTQtNS4xLTRMMjc2LjEsMTc2LjV6Ii8+DQoJPHBhdGggaWQ9IlhNTElEXzI4XyIgY2xhc3M9InN0MSIgZD0iTTI1MCwzNjkuOGMtNjUuOSwwLTExOS4zLTUzLjctMTE5LjMtMTIwYzAtNjYuMyw1My40LTEyMCwxMTkuMy0xMjBzMTE5LjMsNTMuNywxMTkuMywxMjANCgkJQzM2OS4zLDMxNi4xLDMxNS45LDM2OS44LDI1MCwzNjkuOCBNMjUwLDczLjZjLTEwMC44LDAtMTgyLjUsNzktMTgyLjUsMTc2LjRjMCw5Ny40LDgxLjcsMTc2LjQsMTgyLjUsMTc2LjQNCgkJYzEwMC44LDAsMTgyLjUtNzksMTgyLjUtMTc2LjRDNDMyLjUsMTUyLjYsMzUwLjgsNzMuNiwyNTAsNzMuNiIvPg0KPC9nPg0KPC9zdmc+DQo="
+}
