@@ -99,7 +99,7 @@ This application was developed and tested under Python version 3.9.
 
 All types allowed in [CTIM](https://github.com/threatgrid/ctim/blob/master/doc/structures/sighting.md#propertytype-observabletypeidentifierstring)
 
-### CTIM Mapping Specifies
+### CTIM Mapping Specifics
 
 Each response from the Graylog API for the supported observables generates the following CTIM entities:
   - `Sightings` are based on `.messages[]`
