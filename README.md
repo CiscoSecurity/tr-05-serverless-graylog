@@ -22,7 +22,7 @@ Open the code folder in your terminal.
 cd code
 ```
 
-If you want to test the application you have to install dependencies from the [requirements.txt](requirements.txt) file:
+If you want to test the application you have to install dependencies from the [Pipfile](code/Pipfile) file:
 ```
 pip install --no-cache-dir --upgrade pipenv && pipenv install --dev
 ```
