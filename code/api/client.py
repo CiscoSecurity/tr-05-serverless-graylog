@@ -23,7 +23,7 @@ class GraylogClient:
     def __init__(self, credentials):
         self._credentials = credentials
         self._headers = {
-            'user-agent': current_app.config['USER_AGENT'],
+            'User-Agent': current_app.config['USER_AGENT'],
             'X-Requested-By': current_app.config['REQUESTED_BY']
         }
 
