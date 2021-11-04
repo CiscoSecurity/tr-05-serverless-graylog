@@ -25,8 +25,6 @@ def routes():
     yield '/health'
     yield '/observe/observables'
     yield '/refer/observables'
-    yield '/respond/observables'
-    yield '/respond/trigger'
 
 
 @fixture(scope='module', params=routes(), ids=lambda route: f'POST {route}')
