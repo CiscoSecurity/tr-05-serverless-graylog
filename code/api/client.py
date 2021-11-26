@@ -7,7 +7,7 @@ from http import HTTPStatus
 
 import requests
 from flask import current_app
-from requests.exceptions import ConnectionError
+from requests.exceptions import ConnectionError, InvalidURL
 
 from api.errors import (
     AuthorizationError,
@@ -82,7 +82,7 @@ class GraylogClient:
                                         headers=self._headers)
         except UnicodeEncodeError:
             raise AuthorizationError(INVALID_CREDENTIALS)
-        except ConnectionError:
+        except (ConnectionError, InvalidURL):
             raise GraylogConnectionError(self._url)
 
         if response.ok:
